@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  pocketbase:
+    build: ./pocketbase
+    container_name: pocketbase
+    volumes:
+      - pocketbase_data:/pb_data
+    ports:
+      - "8090:8090"
+    restart: always
+
+  sveltekit:
+    build: ./sveltekit
+    container_name: sveltekit
+    ports:
+      - "3000:3000"
+    environment:
+      - VIRTUAL_HOST=sveltekit.local
+      - VIRTUAL_PORT=3000
+      - NODE_ENV=development
+    restart: always
+
+volumes:
+  pocketbase_data:
