@@ -1,2 +1,10 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script lang="ts">
+	export let data;
+	console.log('ON PAGE USER DATA: ', data.user);
+</script>
+
+{#if data.user}
+	<h1>Page {data.user.name}</h1>
+{:else}
+	<h1>Page Anon</h1>
+{/if}
