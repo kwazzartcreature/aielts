@@ -25,17 +25,16 @@ export const actions = {
 			return fail(400, { error: { message: errorString } });
 		}
 
-		// Check if credentials are already in use
 		const { username, email, password } = formData.data;
 		const pb = locals.pb;
 
+		// Check if username is already in use
 		try {
 			const existingUserByUsername = await adminPB
 				.collection('user')
 				.getFirstListItem(`username="${username}"`);
-			if (existingUserByUsername) {
+			if (existingUserByUsername)
 				return fail(400, { error: { message: 'User with this username already exists.' } });
-			}
 		} catch (err) {
 			if (err.status === 404) {
 				console.log('USERNAME IS NOT FOUND. MAY BE UNIQUE');
@@ -44,13 +43,13 @@ export const actions = {
 			}
 		}
 
+		// Check if email is already in use
 		try {
 			const existingUserByEmail = await adminPB
 				.collection('user')
 				.getFirstListItem(`email="${email}"`);
-			if (existingUserByEmail) {
+			if (existingUserByEmail)
 				return fail(400, { error: { message: 'User with this email already exists.' } });
-			}
 		} catch (err) {
 			if (err.status === 404) {
 				console.log('EMAIL IS NOT FOUND. MAY BE UNIQUE');
