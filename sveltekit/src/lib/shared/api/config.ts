@@ -1,7 +1,11 @@
 import PocketBase from 'pocketbase';
-import { POCKETBASE_CONNECTION_STRING } from '$env/static/private';
+import {
+	POCKETBASE_CONNECTION_STRING,
+	POCKETBASE_ADMIN_EMAIL,
+	POCKETBASE_ADMIN_PASSWORD
+} from '$env/static/private';
 
-async function initPocketBase(token: string | undefined = undefined) {
+export async function initPocketBase(token: string | undefined = undefined) {
 	const pb = new PocketBase(POCKETBASE_CONNECTION_STRING);
 
 	if (!token) {
@@ -11,7 +15,8 @@ async function initPocketBase(token: string | undefined = undefined) {
 	// Auth user via token
 	try {
 		pb.authStore.save(token, { verified: false });
-		await pb.collection('users').authRefresh();
+		await pb.collection('user').authRefresh();
+		if (!pb.authStore.isValid) throw new Error('AuthStore is not valid');
 	} catch (err) {
 		console.error(err);
 	}
@@ -19,4 +24,5 @@ async function initPocketBase(token: string | undefined = undefined) {
 	return pb;
 }
 
-export default initPocketBase;
+export const adminPB = await new PocketBase(POCKETBASE_CONNECTION_STRING);
+await adminPB.admins.authWithPassword(POCKETBASE_ADMIN_EMAIL, POCKETBASE_ADMIN_PASSWORD);
