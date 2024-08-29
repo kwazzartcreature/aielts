@@ -1,3 +1,76 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+	font-family: 'Manrope';
+	src: url('/fonts/manrope/Manrope-VariableFont_wght.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+:root {
+	font-family: 'Manrope', sans-serif;
+	font-size: 16px;
+
+	--radius: 1.3rem;
+
+	--bg-100: #ffffff;
+	--bg-1000: #f9f9f9;
+
+	--whisper-100: #f8f8f8;
+	--whisper-150: #ededed;
+	--whisper-200: #d6d6d6;
+	--whisper-300: #c2c2c2;
+	--whisper-400: #e5e5e5;
+	--whisper-500: #999999;
+	--whisper-700: #6e6e6e;
+	--whisper-800: #ffffff;
+	--whisper-900: #ffffff;
+	--whisper-950: #141414;
+
+	--rapture-50: #fff7f5;
+	--rapture-100: #fee5dc;
+	--rapture-150: #f7d2cb;
+	--rapture-200: #ffbfa8;
+	--rapture-300: #fba6a9;
+	--rapture-400: #f88e68;
+	--rapture-500: #ff7e51;
+	--rapture-600: #d36441;
+	--rapture-700: #a9472d;
+	--rapture-800: #703720;
+	--rapture-900: #522110;
+	--rapture-950: #3d150b;
+
+	--mindaro-50: #faff9f;
+	--mindaro-100: #e6ffaf;
+	--mindaro-150: #f6ffcf;
+	--mindaro-200: #e6f9b5;
+	--mindaro-300: #dbf9b5;
+	--mindaro-400: #c4f2a9;
+	--mindaro-500: #a5d8aa;
+	--mindaro-600: #8bad7a;
+	--mindaro-700: #5b6737;
+	--mindaro-800: #545f2d;
+	--mindaro-900: #415710;
+	--mindaro-950: #213102;
+
+	--chimera-50: #f4f7ff;
+	--chimera-100: #e3e7ff;
+	--chimera-150: #e4e7ff;
+	--chimera-200: #d1dcff;
+	--chimera-300: #bfdfff;
+	--chimera-400: #99bbff;
+	--chimera-500: #7a99fe;
+	--chimera-600: #6294f0;
+	--chimera-700: #4c5c9a;
+	--chimera-800: #38669e;
+	--chimera-900: #091537;
+	--chimera-950: #0d0b1e;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}

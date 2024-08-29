@@ -1,11 +1,9 @@
 <script lang="ts">
+	import { createUserContext } from '$lib/entities/users';
 	import '../app/app.css';
-</script>
 
-<nav class="flex flex-col">
-	<a class="underline" href="/">Home</a>
-	<a class="underline" href="/sign-up">Sign-Up</a>
-	<a class="underline" href="/sign-in">Sign-In</a>
-</nav>
+	export let data;
+	createUserContext(data.user);
+</script>
 
 <slot />

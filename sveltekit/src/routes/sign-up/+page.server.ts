@@ -20,7 +20,6 @@ export const actions = {
 			});
 
 			const errorString = errorMessages.join(', ');
-			console.log(errorString);
 
 			return fail(400, { error: { message: errorString } });
 		}
@@ -71,10 +70,10 @@ export const actions = {
 		try {
 			await adminPB.collection('user').create(createDto);
 			await adminPB.collection('user').requestVerification(email);
+
 			await pb.collection('user').authWithPassword(email, password);
 			cookies.set('token', pb.authStore.token, { path: '/' });
 		} catch (err) {
-			console.error(err);
 			return fail(500, { error: { message: 'Failed to create user. Please try again later.' } });
 		}
 	}
