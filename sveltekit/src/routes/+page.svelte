@@ -2,6 +2,7 @@
 	import { slide } from 'svelte/transition';
 
 	import Button from '$lib/shared/ui/Button.svelte';
+	import Accordion from '$lib/shared/ui/Accordion.svelte';
 
 	import Logo from '$lib/shared/assets/icons/Logo.svelte';
 	import Student from '$lib/shared/assets/icons/Student.svelte';
@@ -16,6 +17,47 @@
 	import PhoneFrame from '$lib/shared/assets/images/phone-frame.png';
 
 	let openTooltip = true;
+
+	const accordionItems = [
+		{
+			title: 'Is there a free trial?',
+			content: 'Yes, after registration you can solve two speaking full-tests for free'
+		},
+		{
+			title: 'Are your mock tests similar to the actual exams?',
+			content:
+				"AIELTS's mock tests include real IELTS exam questions of 2023-2024 years. Moreover, AIELTS's content is up-to-date with the latest trends of the IELTS test."
+		},
+		{
+			title: 'How accurate are the results compared to the real IELTS test?',
+			content:
+				'The grading algorithms are trained over actual IELTS speaking test. Moreover, they use the same marking band descriptors as used by the IELTS team and non-biased compared to a human evaluator.'
+		},
+		{
+			title: 'Can I do both General and Academic IELTS tests?',
+			content: 'Yes, we have both categories of practice tests.'
+		},
+		{
+			title: 'Can I choose between Part 1, 2 and 3 in the Speaking Test?',
+			content:
+				'Yes, you can choose to practice either Part 1, 2 or 3 in the Speaking Test, or you can pass the full test'
+		},
+		{
+			title: 'Can I check my previous results?',
+			content:
+				'Yes, they are available on the home page after you log in. It is represented by graph to help you visualize your progress.'
+		},
+		{
+			title: 'Is this platform suitable for beginners?',
+			content:
+				"Absolutely! Whether you're a beginner or an advanced learner, our platform offers diverse practice tasks and personalized feedback to meet your individual learning needs."
+		},
+		{
+			title: 'What support is available if I have questions or issues?',
+			content:
+				'We offer comprehensive customer support. If you encounter any issues or have any questions, feel free to reach out to our support team via email aielts.support@gmail.com.'
+		}
+	];
 </script>
 
 <header class="flex items-center justify-between px-4 py-6">
@@ -269,14 +311,9 @@
 	<section class="mb-12 pt-4">
 		<h2 class="px-8 py-4 text-xl font-semibold">FAQs</h2>
 
-		<ul class="px-6">
-			<li class="mb-4 space-y-3 pt-4">
-				<h4 class="font-semibold">Is there a free trial?</h4>
-				<p class="text-sm">
-					Yes, after registration you can solve two speaking full-tests for free
-				</p>
-			</li>
-		</ul>
+		<div class="px-6">
+			<Accordion items={accordionItems} />
+		</div>
 	</section>
 </main>
 
