@@ -3,13 +3,17 @@ export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
 		extend: {
+			fontFamily: {
+				sans: ['Manrope', 'sans-serif']
+			},
 			fontSize: {
 				h2: ['32px', '40px'],
 				h3: ['24px', '32px']
 			},
 			fontWeight: {
 				semibold: '600',
-				regular: '400'
+				regular: '400',
+				bold: '700'
 			},
 			colors: {
 				'bg-white': 'var(--bg-white)',
@@ -77,7 +81,8 @@ export default {
 				tiny: 'calc(var(--radius) - 12px)',
 				sm: 'calc(var(--radius) - 8px)',
 				md: 'calc(var(--radius) - 4px)',
-				lg: 'calc(var(--radius))'
+				lg: 'calc(var(--radius))',
+				xl: 'calc(var(--radius) + 4px)'
 			}
 		}
 	},

@@ -5,8 +5,7 @@ export async function load({ locals }) {
 	try {
 		const user = userSchema.parse(pb.authStore.model);
 		return { user };
-	} catch (err) {
-		console.error(err);
+	} catch {
 		return { user: null };
 	}
 }

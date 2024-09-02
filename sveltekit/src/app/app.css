@@ -67,6 +67,8 @@
 	--chimera-800: #132869;
 	--chimera-900: #091537;
 	--chimera-950: #050b1e;
+
+	color: var(--whisper-950);
 }
 
 * {
