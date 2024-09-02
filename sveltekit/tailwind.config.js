@@ -14,6 +14,8 @@ export default {
 			colors: {
 				'bg-white': 'var(--bg-white)',
 				'bg-gray': 'var(--bg-gray)',
+				danger: 'var(--danger)',
+				'bg-danger': 'var(--bg-danger)',
 				whisper: {
 					DEFAULT: 'var(--whisper-200)',
 					100: 'var(--whisper-100)',

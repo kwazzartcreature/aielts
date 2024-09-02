@@ -4,7 +4,7 @@
 	import { mrg } from '../helpers/mrg';
 	import type { ClassValue } from 'clsx';
 
-	let clicked = false;
+	// let clicked = false;
 
 	const buttonVars = cva(
 		`font-semibold active:scale-95 transition-all inline-flex items-center justify-center whitespace-nowrap transition-colors
@@ -12,7 +12,7 @@
 		{
 			variants: {
 				variant: {
-					default: 'bg-whisper-950 text-bg-white',
+					default: 'bg-whisper-950 text-bg-white disabled:bg-whisper-150',
 					solid: 'bg-whisper-950 text-bg-white disabled:bg-whisper-150',
 					outline:
 						'border border-whisper-500 text-whisper-950 disabled:text-whisper-150 disabled:border-whisper-150',

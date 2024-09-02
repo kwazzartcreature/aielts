@@ -1,14 +1,15 @@
 <script lang="ts">
 	import Button from '$lib/shared/ui/Button.svelte';
+	import Input from '$lib/shared/ui/Input.svelte';
 	import { getUserContext } from '$lib/entities/users';
-	import Logo from '$lib/shared/assets/icons/logo.svg';
-	import Google from '$lib/shared/assets/icons/google.svg';
+	import UserProfile from '$lib/shared/assets/icons/UserProfile.svelte';
+	import Logo from '$lib/shared/assets/icons/Logo.svelte';
 
 	const user = getUserContext();
 </script>
 
 <header class="flex justify-between items-center px-4 py-6">
-	<a href="/"><img src={Logo} alt="brand logo" /></a>
+	<Logo />
 	<Button variant="outline" size="small">Log In</Button>
 </header>
 
@@ -17,3 +18,26 @@
 {:else}
 	<h1>Page Anon</h1>
 {/if}
+
+<div class="space-y-2">
+	<Input variant="solid" placeholder="lol" name="name">
+		<svelte:fragment slot="icon" let:fill>
+			<UserProfile {fill} />
+		</svelte:fragment>
+	</Input>
+	<Input variant="outline" placeholder="lol" name="name">
+		<svelte:fragment slot="icon" let:fill>
+			<UserProfile {fill} />
+		</svelte:fragment>
+	</Input>
+	<Input error variant="solid" placeholder="lol" name="name">
+		<svelte:fragment slot="icon" let:fill>
+			<UserProfile {fill} />
+		</svelte:fragment>
+	</Input>
+	<Input error variant="outline" placeholder="lol" name="name">
+		<svelte:fragment slot="icon" let:fill>
+			<UserProfile {fill} />
+		</svelte:fragment>
+	</Input>
+</div>
