@@ -15,8 +15,6 @@
 	<img src={OfferMobile} alt="offer girl" />
 
 	<div class="flex justify-center px-6 pt-4">
-		<Button className="text-md py-3" variant="solid" size="large">
-			<span class="px-6">Start preparation</span>
-		</Button>
+		<slot name="action" />
 	</div>
 </section>
