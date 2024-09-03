@@ -1,0 +1,3 @@
+pocketbase
+python-dotenv
+pandas
