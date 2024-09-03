@@ -6,7 +6,7 @@
 	export let error = false;
 
 	const inputVars = cva(
-		`px-4 py-3 rounded-sm text-whisper-950
+		`w-full px-4 py-3 rounded-sm text-whisper-950
   disabled:opacity-40 placeholder:text-whisper-500
   focus:placeholder:text-black/0 focus:text-whisper-950`,
 		{
@@ -29,6 +29,7 @@
 	let focus = false;
 
 	export let name;
+	export let required = false;
 	export let value = '';
 	export let placeholder = '';
 	export let type: 'email' | 'password' | 'text' | 'number' | null | undefined = undefined;
@@ -38,8 +39,9 @@
 </script>
 
 <div>
-	<label class="relative inline-flex justify-between items-center">
+	<label class="relative inline-flex w-full items-center justify-between">
 		<input
+			{required}
 			on:focusin={() => (focus = true)}
 			on:focusout={() => (focus = false)}
 			{name}
@@ -57,6 +59,6 @@
 		</div>
 	</label>
 	{#if error}
-		<p class="px-2 text-sm text-danger font-semibold"><slot name="error">Error</slot></p>
+		<p class="text-danger px-2 text-sm font-semibold"><slot name="error">Error</slot></p>
 	{/if}
 </div>

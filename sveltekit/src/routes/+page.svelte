@@ -66,8 +66,13 @@
 <main>
 	<Hero>
 		<svelte:fragment slot="action">
-			<Button on:click={openModal} className="text-md py-3" variant="solid" size="large">
-				<span class="px-6">Start preparation</span>
+			<Button
+				on:click={openModal}
+				className="max-h-[60px] text-md py-3"
+				variant="solid"
+				size="large"
+			>
+				<span class="px-6"> Start preparation </span>
 			</Button>
 		</svelte:fragment>
 	</Hero>
@@ -83,14 +88,18 @@
 	<Faq />
 </main>
 
-<footer class="bg-whisper-100 rounded-xl px-6 pb-[100px] pt-10">
-	<h3 class="mb-2 text-xl font-semibold">Resourses</h3>
-	<ul class="mb-5">
-		<li class="text-lg"><a href="/">About IELTS</a></li>
-		<li class="text-lg"><a href="/">Privacy Policy</a></li>
-		<li class="text-lg"><a href="/">Term and Conditions</a></li>
-		<li class="text-lg"><a href="/">Refund and Cancellation</a></li>
-	</ul>
+<footer class="bg-whisper-100 rounded-xl px-6 pb-[100px] pt-10 md:flex md:space-x-8">
+	<div>
+		<h3 class="mb-2 text-xl font-semibold">Resourses</h3>
+		<ul class="mb-5">
+			<li class="text-lg"><a href="/">About IELTS</a></li>
+			<li class="text-lg"><a href="/">Privacy Policy</a></li>
+			<li class="text-lg"><a href="/">Term and Conditions</a></li>
+			<li class="text-lg"><a href="/">Refund and Cancellation</a></li>
+		</ul>
+	</div>
 
-	<h3 class="mb-2 text-xl font-semibold">Contact Us</h3>
+	<div>
+		<h3 class="mb-2 text-xl font-semibold">Contact Us</h3>
+	</div>
 </footer>

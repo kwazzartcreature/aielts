@@ -17,10 +17,8 @@
 	<h2 class="px-8 py-4 text-center text-xl font-semibold">Watch video how it works!</h2>
 
 	<iframe
-		class="mx-auto mb-12 rounded-lg"
+		class="mx-auto mb-12 h-[200px] w-[370px] rounded-lg md:mb-[100px] md:h-[360px] md:w-[800px]"
 		title="Service showcase"
-		width="340"
-		height="175"
 		src="https://www.youtube.com/embed/tgbNymZ7vqY"
 	>
 	</iframe>

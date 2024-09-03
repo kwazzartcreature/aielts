@@ -44,9 +44,9 @@
 </script>
 
 <section class="mb-12 pt-4">
-	<h2 class="px-8 py-4 text-xl font-semibold">FAQs</h2>
+	<h2 class="px-8 py-4 text-center text-xl font-semibold">FAQs</h2>
 
-	<div class="px-6">
+	<div class="flex justify-center px-6">
 		<Accordion items={accordionItems} />
 	</div>
 </section>

@@ -1,6 +1,9 @@
 <script lang="ts">
-	import PhoneFrame from '$lib/shared/assets/images/phone-frame.png';
 	import { onMount } from 'svelte';
+
+	import { mrg } from '$lib/shared/helpers/mrg';
+
+	import PhoneFrame from '$lib/shared/assets/images/phone-frame.png';
 
 	let scroll: HTMLElement;
 
@@ -12,14 +15,20 @@
 	});
 </script>
 
-<section class="bg-whisper-950 rounded-xl pb-12 pt-4">
-	<h2 class="text-bg-white px-8 py-4 text-xl font-semibold">
+<section class="bg-whisper-950 mx-6 rounded-xl pb-12 pt-4 md:relative md:min-h-[500px]">
+	<h2
+		class="text-bg-white md:text-h2 left-64 top-20 px-8 py-4 text-xl font-semibold md:absolute md:max-w-[540px]"
+	>
 		Excel in your exam performance*with aiELTS
 	</h2>
 
-	<img class="mx-auto mb-10" src={PhoneFrame} alt="iphone frame" />
+	<img
+		class={mrg('mx-auto mb-10', 'left-12 top-12 md:absolute md:m-0 md:h-[400px]')}
+		src={PhoneFrame}
+		alt="iphone frame"
+	/>
 
-	<ul bind:this={scroll} class="flex cursor-grabbing space-x-2 overflow-scroll">
+	<ul bind:this={scroll} class="top-52 flex cursor-grabbing space-x-2 overflow-scroll md:relative">
 		<li class="bg-mindaro-300 h-fit min-w-[312px] rounded-lg">
 			<h3 class="px-5 pb-3 pt-4 text-lg font-semibold">
 				Prepare for the IELTS speaking*test format
