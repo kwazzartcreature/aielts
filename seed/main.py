@@ -1,8 +1,8 @@
 import os
 from dotenv import load_dotenv
 
-from string import punctuation
 import pandas as pd
+from string import punctuation
 from pocketbase import PocketBase
 
 
@@ -89,5 +89,5 @@ def seed_tasks(pb: PocketBase):
 
 if __name__ == "__main__":
     pb = init()
-    # seed_themes(pb)
-    # seed_tasks(pb)
+    seed_themes(pb)
+    seed_tasks(pb)

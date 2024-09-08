@@ -1,5 +1,7 @@
 import { userSchema } from '$lib/shared/api/schemas';
 
+export const prerender = false;
+
 export async function load({ locals }) {
 	const pb = locals.pb;
 	try {

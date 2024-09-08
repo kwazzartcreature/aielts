@@ -17,6 +17,7 @@
 	"dependencies": {
 		"bits-ui": "^0.21.13",
 		"pocketbase": "^0.21.5",
+		"redis": "^4.7.0",
 		"zod": "^3.23.8"
 	},
 	"devDependencies": {

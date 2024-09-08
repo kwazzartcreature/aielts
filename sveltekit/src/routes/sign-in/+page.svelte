@@ -8,6 +8,7 @@
 	import Logo from '$lib/shared/assets/icons/Logo.svelte';
 	import Profile from '$lib/shared/assets/icons/UserProfile.svelte';
 	import Eye from '$lib/shared/assets/icons/EyeOpen.svelte';
+	import { goto } from '$app/navigation';
 
 	export let form;
 
@@ -32,7 +33,16 @@
 	</Button>
 </div>
 
-<form use:enhance method="POST" class="mx-auto flex max-w-[300px] flex-col">
+<form
+	use:enhance={() => {
+		return async ({ result, update }) => {
+			await update();
+			if (result.type === 'success') goto('/');
+		};
+	}}
+	method="POST"
+	class="mx-auto flex max-w-[300px] flex-col"
+>
 	<div class="mb-2 flex items-center justify-center">
 		<span class="bg-whisper-100 inline-block h-[1px] w-[100px]"></span>
 		<span class="relative bottom-1 mx-2">or</span>
@@ -43,10 +53,10 @@
 		<Input
 			variant="solid"
 			bind:value={identifier}
-			name="username"
+			name="identifier"
 			required
 			type="text"
-			placeholder="username or email"
+			placeholder="Username or email"
 			error={Boolean(form?.error)}
 		>
 			<svelte:fragment slot="icon" let:fill>
@@ -60,7 +70,7 @@
 			name="password"
 			required
 			type="password"
-			placeholder="password:"
+			placeholder="Set a password"
 			error={Boolean(form?.error)}
 		>
 			<svelte:fragment slot="icon" let:fill>
@@ -70,7 +80,7 @@
 	</div>
 
 	<div class="mx-6 mb-4">
-		<Button className="w-full" variant="solid">Sign up with email</Button>
+		<Button className="w-full" variant="solid">Log in with password</Button>
 	</div>
 
 	<p class="mb-12 text-center underline"><a href="/">Forgot password?</a></p>

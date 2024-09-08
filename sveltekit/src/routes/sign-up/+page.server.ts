@@ -1,6 +1,9 @@
 import { fail } from '@sveltejs/kit';
+
+import { registerFormSchema } from '$lib/features/auth';
 import { adminPB } from '$lib/shared/api/config.js';
-import { registerFormSchema } from '$lib/features/auth/model.js';
+
+export const prerender = false;
 
 export const actions = {
 	default: async ({ request, cookies, locals }) => {

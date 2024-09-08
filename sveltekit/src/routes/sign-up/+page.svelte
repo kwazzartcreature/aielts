@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { goto } from '$app/navigation';
 
 	import Button from '$lib/shared/ui/Button.svelte';
 	import Input from '$lib/shared/ui/Input.svelte';
@@ -34,7 +35,16 @@
 	</Button>
 </div>
 
-<form use:enhance method="POST" class="mx-auto flex max-w-[300px] flex-col">
+<form
+	use:enhance={() => {
+		return async ({ result, update }) => {
+			await update();
+			if (result.type === 'success') goto('/');
+		};
+	}}
+	method="POST"
+	class="mx-auto flex max-w-[300px] flex-col"
+>
 	<div class="mb-2 flex items-center justify-center">
 		<span class="bg-whisper-100 inline-block h-[1px] w-[100px]"></span>
 		<span class="relative bottom-1 mx-2">or</span>
