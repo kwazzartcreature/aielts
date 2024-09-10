@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 // Schema for user collection
 export const userSchema = z.object({
+	id: z.string().optional(),
 	name: z.string().optional(),
 	avatar: z.string().optional(), // Assuming this is a URL or file path
 	generationAmount: z.number().min(0).optional(),
@@ -11,6 +12,7 @@ export const userSchema = z.object({
 
 // Schema for attempt collection
 export const attemptSchema = z.object({
+	id: z.string().optional(),
 	type: z.enum(['single_part', 'full_section']).optional(),
 	section: z.enum(['writing', 'speaking']).optional(),
 	user: z.string().optional(), // Relation to user collection by ID
@@ -24,17 +26,20 @@ export const attemptSchema = z.object({
 
 // Schema for audio collection
 export const audioSchema = z.object({
+	id: z.string().optional(),
 	audio: z.string().optional(), // Assuming this is a file path
 	questionOffsetsString: z.string().optional()
 });
 
 // Schema for feedback collection
 export const feedbackSchema = z.object({
+	id: z.string().optional(),
 	criterias: z.array(z.string()).optional() // Relation to feedbackCriteria collection by ID
 });
 
 // Schema for feedbackCriteria collection
 export const feedbackCriteriaSchema = z.object({
+	id: z.string().optional(),
 	structuralReview: z.any().optional(), // Assuming this is a JSON object
 	name: z
 		.enum(['band', 'lexical', 'coherence', 'grammar', 'pronouncation', 'structure'])
@@ -45,11 +50,13 @@ export const feedbackCriteriaSchema = z.object({
 
 // Schema for question collection
 export const questionSchema = z.object({
+	id: z.string().optional(),
 	content: z.string() // Required field
 });
 
 // Schema for record collection
 export const recordSchema = z.object({
+	id: z.string().optional(),
 	recordEndTime: z.string().optional(), // Assuming ISO date string
 	task: z.string().optional(), // Relation to task collection by ID
 	content: z.string().optional(),
@@ -58,6 +65,7 @@ export const recordSchema = z.object({
 
 // Schema for task collection
 export const taskSchema = z.object({
+	id: z.string().optional(),
 	examType: z.enum(['general', 'academic']).optional(),
 	section: z.enum(['writing', 'speaking']).optional(),
 	part: z.number().min(1).max(3).optional(),
@@ -68,12 +76,15 @@ export const taskSchema = z.object({
 
 // Schema for theme collection
 export const themeSchema = z.object({
+	id: z.string().optional(),
 	name: z.string().optional(),
+	image: z.string().optional(), // Assuming this is a URL or file path
 	slug: z.string().optional(),
 	vocabulary: z.string().optional() // Relation to vocabulary collection by ID
 });
 
 // Schema for vocabulary collection
 export const vocabularySchema = z.object({
+	id: z.string().optional(),
 	theme: z.string().optional() // Relation to theme collection by ID
 });
