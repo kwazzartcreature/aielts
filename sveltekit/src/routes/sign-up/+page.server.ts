@@ -1,8 +1,8 @@
 import { fail } from '@sveltejs/kit';
+import { ClientResponseError } from 'pocketbase';
 
 import { registerFormSchema } from '$lib/features/auth';
 import { adminPB } from '$lib/shared/api/config.js';
-import { ClientResponseError } from 'pocketbase';
 
 export const prerender = false;
 
@@ -86,5 +86,7 @@ export const actions = {
 			return fail(500, { error: { message: 'Failed to create user. Please try again later.' } });
 		}
 		cookies.set('token', pb.authStore.token, { path: '/' });
+
+		return pb.authStore.model;
 	}
 };

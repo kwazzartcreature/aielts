@@ -1,24 +1,27 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { goto } from '$app/navigation';
 
+	import { getUserContext } from '$lib/entities/users';
 	import Button from '$lib/shared/ui/Button.svelte';
 	import Input from '$lib/shared/ui/Input.svelte';
 
 	import Google from '$lib/shared/assets/icons/Google.svelte';
-	import Logo from '$lib/shared/assets/icons/Logo.svelte';
 	import Profile from '$lib/shared/assets/icons/UserProfile.svelte';
 	import Eye from '$lib/shared/assets/icons/EyeOpen.svelte';
-	import { goto } from '$app/navigation';
+
+	import HeaderLayout from '../HeaderLayout.svelte';
+	import { userSchema } from '$lib/shared/api/schemas';
 
 	export let form;
 
 	let identifier = '';
 	let password = '';
+
+	const user = getUserContext();
 </script>
 
-<header class="mb-6 flex items-center justify-between px-4 py-6">
-	<a href="/"><Logo /></a>
-</header>
+<HeaderLayout />
 
 <h1 class="text-h2 p-6 text-center font-semibold">Welcome back!</h1>
 
@@ -37,7 +40,10 @@
 	use:enhance={() => {
 		return async ({ result, update }) => {
 			await update();
-			if (result.type === 'success') goto('/');
+			if (result.type === 'success') {
+				user.set(userSchema.parse(result.data));
+				goto('/');
+			}
 		};
 	}}
 	method="POST"

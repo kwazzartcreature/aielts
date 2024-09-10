@@ -6,21 +6,24 @@
 	import Input from '$lib/shared/ui/Input.svelte';
 
 	import Google from '$lib/shared/assets/icons/Google.svelte';
-	import Logo from '$lib/shared/assets/icons/Logo.svelte';
 	import Profile from '$lib/shared/assets/icons/UserProfile.svelte';
 	import Email from '$lib/shared/assets/icons/Email.svelte';
 	import Eye from '$lib/shared/assets/icons/EyeOpen.svelte';
 
+	import HeaderLayout from '../HeaderLayout.svelte';
+	import { getUserContext } from '$lib/entities/users';
+	import { userSchema } from '$lib/shared/api/schemas';
+
 	export let form;
+
+	const user = getUserContext();
 
 	let username = '';
 	let email = '';
 	let password = '';
 </script>
 
-<header class="mb-6 flex items-center justify-between px-4 py-6">
-	<a href="/"><Logo /></a>
-</header>
+<HeaderLayout />
 
 <h1 class="text-h2 p-6 text-center font-semibold">Create an account to start practice!</h1>
 
@@ -39,7 +42,10 @@
 	use:enhance={() => {
 		return async ({ result, update }) => {
 			await update();
-			if (result.type === 'success') goto('/');
+			if (result.type === 'success') {
+				user.set(userSchema.parse(result.data));
+				goto('/');
+			}
 		};
 	}}
 	method="POST"

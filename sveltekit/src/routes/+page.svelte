@@ -4,14 +4,14 @@
 	import Button from '$lib/shared/ui/Button.svelte';
 	import BottomModal from '$lib/shared/ui/BottomModal.svelte';
 
+	import HeaderLayout from './HeaderLayout.svelte';
+
 	import Hero from './Hero.svelte';
 	import Segments from './Segments.svelte';
 	import ServiceQuality from './ServiceQuality.svelte';
 	import PhoneFeatures from './PhoneFeatures.svelte';
 	import Feedback from './Feedback.svelte';
 	import Faq from './FAQ.svelte';
-
-	import Logo from '$lib/shared/assets/icons/Logo.svelte';
 
 	let open = false;
 
@@ -20,10 +20,11 @@
 	};
 </script>
 
-<header class="flex items-center justify-between px-4 py-6">
-	<a href="/"><Logo /></a>
-	<Button on:click={openModal} variant="outline" size="small">Log In</Button>
-</header>
+<HeaderLayout>
+	<svelte:fragment slot="auth">
+		<Button on:click={openModal} variant="outline" size="small">Log In</Button>
+	</svelte:fragment>
+</HeaderLayout>
 
 <BottomModal bind:open>
 	<h3 class="text-xl font-semibold" slot="title">Start today with aiELTS</h3>

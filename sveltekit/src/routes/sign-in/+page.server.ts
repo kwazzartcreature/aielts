@@ -18,6 +18,7 @@ export const actions = {
 		try {
 			await pb.collection('user').authWithPassword(identifier, password);
 			cookies.set('token', pb.authStore.token, { path: '/' });
+			return pb.authStore.model;
 		} catch (err) {
 			if (err instanceof ClientResponseError) {
 				return fail(err.status, { error: { message: 'Wrong credentials' } });
