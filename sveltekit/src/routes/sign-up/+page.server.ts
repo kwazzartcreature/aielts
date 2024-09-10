@@ -2,6 +2,7 @@ import { fail } from '@sveltejs/kit';
 
 import { registerFormSchema } from '$lib/features/auth';
 import { adminPB } from '$lib/shared/api/config.js';
+import { ClientResponseError } from 'pocketbase';
 
 export const prerender = false;
 
@@ -38,11 +39,14 @@ export const actions = {
 			if (existingUserByUsername)
 				return fail(400, { error: { message: 'User with this username already exists.' } });
 		} catch (err) {
-			if (err.status === 404) {
-				console.log('USERNAME IS NOT FOUND. MAY BE UNIQUE');
-			} else {
+			if (err instanceof ClientResponseError) {
+				if (err.status === 404) console.log('USERNAME IS NOT FOUND. MAY BE UNIQUE');
+				else
+					return fail(500, {
+						error: { message: 'Internal server error. Please try again later.' }
+					});
+			} else
 				return fail(500, { error: { message: 'Internal server error. Please try again later.' } });
-			}
 		}
 
 		// Check if email is already in use
@@ -53,11 +57,14 @@ export const actions = {
 			if (existingUserByEmail)
 				return fail(400, { error: { message: 'User with this email already exists.' } });
 		} catch (err) {
-			if (err.status === 404) {
-				console.log('EMAIL IS NOT FOUND. MAY BE UNIQUE');
-			} else {
+			if (err instanceof ClientResponseError) {
+				if (err.status === 404) console.log('EMAIL IS NOT FOUND. MAY BE UNIQUE');
+				else
+					return fail(500, {
+						error: { message: 'Internal server error. Please try again later.' }
+					});
+			} else
 				return fail(500, { error: { message: 'Internal server error. Please try again later.' } });
-			}
 		}
 
 		// Creating new user
@@ -75,9 +82,9 @@ export const actions = {
 			await adminPB.collection('user').requestVerification(email);
 
 			await pb.collection('user').authWithPassword(email, password);
-			cookies.set('token', pb.authStore.token, { path: '/' });
-		} catch (err) {
+		} catch {
 			return fail(500, { error: { message: 'Failed to create user. Please try again later.' } });
 		}
+		cookies.set('token', pb.authStore.token, { path: '/' });
 	}
 };

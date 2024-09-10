@@ -1,12 +1,9 @@
 import PocketBase from 'pocketbase';
 import {
-	NODE_ENV,
 	POCKETBASE_URL,
 	POCKETBASE_ADMIN_EMAIL,
 	POCKETBASE_ADMIN_PASSWORD
 } from '$env/static/private';
-
-console.log('MODE: ' + NODE_ENV);
 
 export async function initPocketBase(token: string | undefined = undefined) {
 	const pb = new PocketBase(POCKETBASE_URL);
