@@ -17,7 +17,7 @@
 
 		<Dialog.Content
 			transition={slide}
-			class="bg-whisper-100 fixed bottom-0 z-50 h-3/4 w-screen rounded-xl p-6"
+			class="bg-whisper-100 min-h-3/4 fixed bottom-0 z-50 w-screen rounded-xl p-6"
 		>
 			<Dialog.Close class="absolute right-4 top-4"><Close /></Dialog.Close>
 

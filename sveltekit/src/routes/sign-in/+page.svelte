@@ -42,7 +42,7 @@
 			await update();
 			if (result.type === 'success') {
 				user.set(userSchema.parse(result.data));
-				goto('/');
+				goto('/app');
 			}
 		};
 	}}

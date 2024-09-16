@@ -4,16 +4,18 @@ import { z } from 'zod';
 export const userSchema = z.object({
 	id: z.string().optional(),
 	name: z.string().optional(),
+	email: z.string().email().optional(),
 	avatar: z.string().optional(), // Assuming this is a URL or file path
 	generationAmount: z.number().min(0).optional(),
 	subscriptionExpirationDate: z.string().optional(), // Assuming ISO date string
-	subscribed: z.boolean().optional()
+	subscribed: z.boolean().optional(),
+	verified: z.boolean().optional()
 });
 
 // Schema for attempt collection
 export const attemptSchema = z.object({
 	id: z.string().optional(),
-	type: z.enum(['single_part', 'full_section']).optional(),
+	type: z.enum(['singlePart', 'fullSection']).optional(),
 	section: z.enum(['writing', 'speaking']).optional(),
 	user: z.string().optional(), // Relation to user collection by ID
 	feedback: z.string().optional(), // Relation to feedback collection by ID
@@ -21,7 +23,8 @@ export const attemptSchema = z.object({
 	records: z.array(z.string()).optional(), // Relation to records collection by ID
 	answerEndTime: z.string().optional(), // Assuming ISO date string
 	analysisEndTime: z.string().optional(), // Assuming ISO date string
-	transcribeEndTime: z.string().optional() // Assuming ISO date string
+	transcribeEndTime: z.string().optional(), // Assuming ISO date string
+	expand: z.any().optional()
 });
 
 // Schema for audio collection
@@ -34,7 +37,7 @@ export const audioSchema = z.object({
 // Schema for feedback collection
 export const feedbackSchema = z.object({
 	id: z.string().optional(),
-	criterias: z.array(z.string()).optional() // Relation to feedbackCriteria collection by ID
+	criterions: z.array(z.string()).optional() // Relation to feedbackCriteria collection by ID
 });
 
 // Schema for feedbackCriteria collection
