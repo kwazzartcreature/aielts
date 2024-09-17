@@ -2,85 +2,54 @@
 	import { onMount } from 'svelte';
 
 	import { getAttemptContext } from '$lib/entities/attempts';
-	import { getQuestionIndexContext } from '$lib/entities/questions';
+	import { getTaskIndexContext, getTaskVisibleContext } from '$lib/entities/tasks';
+	import Button from '$lib/shared/ui/Button.svelte';
 	import {
 		getQuestionOffsetsContext,
+		getRecorderContext,
 		getRecordingContext,
 		getRecordingTimeSecondsContext
 	} from '$lib/entities/records';
-	import { getTaskIndexContext } from '$lib/entities/tasks';
-	import Button from '$lib/shared/ui/Button.svelte';
+	import { getQuestionIndexContext } from '$lib/entities/questions';
 
-	export let mediaRecorder: MediaRecorder | null;
-	export let audioChunks: Blob[];
-	export let audioBlob: Blob;
-
-	export let taskVisible: boolean;
-	export let part: number;
+	import { startRecording } from './model';
 
 	const attempt = getAttemptContext();
-	const taskIds = $attempt?.tasks;
-	const { taskIndex, increment: incrementTaskIndex } = getTaskIndexContext();
-
+	const recording = getRecordingContext();
+	const taskVisible = getTaskVisibleContext();
 	const questionIndex = getQuestionIndexContext();
 	const { reset: resetQuestionOffsets } = getQuestionOffsetsContext();
+	const { taskIndex, increment: incrementTaskIndex } = getTaskIndexContext();
+	const { startTimer, reset: resetRecordingTime } = getRecordingTimeSecondsContext();
+	const { mediaRecorder, audioChunks, audioBlob } = getRecorderContext();
 
-	const recording = getRecordingContext();
-	const { reset: resetRecordingTime, startTimer } = getRecordingTimeSecondsContext();
+	export let part: number;
+	export let section: 'speaking' | 'writing';
 
-	const sendAudioData = async () => {
-		const formData = new FormData();
-		formData.append('audio', audioBlob);
-		formData.append('section', $attempt?.section!);
-		formData.append('attemptId', $attempt?.id!);
-		formData.append('taskId', taskIds![$taskIndex]);
+	$: attemptId = $attempt?.id || '';
+	$: taskId = $attempt?.tasks![$taskIndex] || '';
 
-		formData.append('questionOffsetsString', localStorage.getItem('questionOffsets')!);
-		localStorage.removeItem('questionOffsets');
-
-		try {
-			const res = await fetch(`/api/records`, {
-				method: 'POST',
-				body: formData
-			});
-
-			if (!res.ok) console.error(await res.text());
-			else console.log('Audio uploaded successfully!');
-		} catch (error) {
-			console.error('Failed to upload audio:', error);
-		}
-
-		$questionIndex = 0;
-		$recording = false;
-		taskVisible = false;
-		resetQuestionOffsets();
-		resetRecordingTime();
-		incrementTaskIndex();
-		audioChunks = [];
-	};
-
-	const startRecording = async () => {
-		const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-		mediaRecorder = new MediaRecorder(stream);
-
-		mediaRecorder.ondataavailable = (event) => {
-			audioChunks.push(event.data);
-		};
-
-		mediaRecorder.onstop = async () => {
-			audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-			await sendAudioData();
-		};
-
-		mediaRecorder.start();
-		$recording = true;
-		startTimer();
-		taskVisible = true;
+	const onStartRecording = () => {
+		startRecording(
+			attemptId,
+			taskId,
+			section,
+			mediaRecorder,
+			audioChunks,
+			audioBlob,
+			recording,
+			taskVisible,
+			questionIndex,
+			resetQuestionOffsets,
+			resetRecordingTime,
+			incrementTaskIndex,
+			startTimer
+		);
 	};
 
 	onMount(() => {
-		if ($attempt?.type === 'singlePart' && part !== 2) startRecording();
+		if ($attempt?.type === 'singlePart' && part !== 2) onStartRecording();
 	});
 </script>
 
-<Button on:click={startRecording}>{'>> start recording >>'}</Button>
+<Button on:click={onStartRecording}>{'>> start recording >>'}</Button>

@@ -1,15 +1,11 @@
 <script lang="ts">
+	import { getRecorderContext } from '$lib/entities/records';
 	import Button from '$lib/shared/ui/Button.svelte';
+	import { submitTask } from './model';
 
-	export let mediaRecorder: MediaRecorder | null;
-
-	const stopRecordingAndProcessLogic = () => {
-		if (mediaRecorder && mediaRecorder.state === 'recording') {
-			mediaRecorder.stop();
-		}
-	};
+	const { mediaRecorder } = getRecorderContext();
 </script>
 
-<Button className="bg-chimera-300" on:click={stopRecordingAndProcessLogic}>
+<Button className="bg-chimera-300" on:click={() => submitTask($mediaRecorder)}>
 	{'>> next task >>'}
 </Button>

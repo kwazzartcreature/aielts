@@ -1,12 +1,7 @@
 import { adminPB } from '$lib/shared/api/config.js';
-import {
-	attemptSchema,
-	feedbackCriteriaSchema,
-	feedbackSchema,
-	recordSchema
-} from '$lib/shared/api/schemas.js';
-import type { RecordModel } from 'pocketbase';
+import { attemptSchema, recordSchema } from '$lib/shared/api/schemas.js';
 import { z } from 'zod';
+import { analize } from './analize';
 
 const updateDTOSchema = z.object({
 	step: z.union([
@@ -58,57 +53,7 @@ export const PUT = async ({ request, params }) => {
 			{ requestKey: 'transcribeEndTime' }
 		);
 
-		(async () => {
-			await new Promise((resolve) => setTimeout(resolve, 10000));
-
-			const feedback = feedbackSchema.parse(
-				await adminPB.collection('feedback').getOne(attempt.feedback!)
-			);
-
-			// Calc and Save feedback criteria
-			const criteriaPromises: Promise<RecordModel>[] = [];
-			let bandCriteriaId: string | null = null;
-			const scores: number[] = [];
-			for (const criteriaId of feedback.criterions!) {
-				const currentCriteria = feedbackCriteriaSchema.parse(
-					await adminPB.collection('feedbackCriteria').getOne(criteriaId)
-				);
-
-				if (currentCriteria.name === 'band') {
-					bandCriteriaId = criteriaId;
-				} else {
-					const score = Math.ceil(Math.random() * 9);
-					scores.push(score);
-					criteriaPromises.push(
-						adminPB.collection('feedbackCriteria').update(
-							criteriaId,
-							{
-								structuralReview: { feature: [1, 2, 3] },
-								score,
-								review: "I'm not sure, I'll review it later"
-							},
-							{ requestKey: currentCriteria.name }
-						)
-					);
-				}
-			}
-			criteriaPromises.push(
-				adminPB.collection('feedbackCriteria').update(bandCriteriaId!, {
-					structuralReview: { feature: scores },
-					score: Math.round(scores.reduce((a, b) => a + b, 0) / scores.length),
-					review: `This is mock band score: ${scores.reduce((a, b) => a + b, 0) / scores.length}`
-				})
-			);
-			await Promise.all(criteriaPromises);
-
-			await adminPB.collection('attempt').update(
-				params.attemptId,
-				{
-					analysisEndTime: new Date()
-				},
-				{ requestKey: 'analysisEndTime' }
-			);
-		})();
+		analize(params.attemptId, attempt.feedback!);
 
 		return new Response(null, { status: 201 });
 	} else return new Response(null, { status: 400 });

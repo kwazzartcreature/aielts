@@ -4,5 +4,7 @@ export {
 	createRecordingTimeSecondsContext,
 	getRecordingTimeSecondsContext,
 	createRecordingContext,
-	getRecordingContext
+	getRecordingContext,
+	createRecorderContext,
+	getRecorderContext
 } from './model';

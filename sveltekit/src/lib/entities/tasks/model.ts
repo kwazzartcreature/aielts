@@ -1,6 +1,7 @@
 import { getContext, setContext } from 'svelte';
-import { derived, writable, type Readable } from 'svelte/store';
+import { derived, writable, type Readable, type Writable } from 'svelte/store';
 
+// Task Index
 interface TaskIndexContext {
 	taskIndex: Readable<number>;
 	increment: () => void;
@@ -26,4 +27,15 @@ export const createTaskIndexContext = () => {
 
 export const getTaskIndexContext = () => {
 	return getContext<TaskIndexContext>('taskIndex');
+};
+
+// Task visible
+export const createTaskVisibleContext = () => {
+	const taskVisible = writable(false);
+	setContext('taskVisible', taskVisible);
+	return taskVisible;
+};
+
+export const getTaskVisibleContext = () => {
+	return getContext<Writable<boolean>>('taskVisible');
 };

@@ -54,6 +54,7 @@ export const createRecordingTimeSecondsContext = () => {
 			recordingTimeSeconds.set(0);
 		},
 		startTimer: () => {
+			if (interval) clearInterval(interval);
 			interval = setInterval(() => {
 				recordingTimeSeconds.update((time) => time + 1);
 			}, 1000);
@@ -77,4 +78,28 @@ export const createRecordingContext = () => {
 
 export const getRecordingContext = () => {
 	return getContext<Writable<boolean>>('recording');
+};
+
+// Recorder state
+interface RecorderContext {
+	mediaRecorder: Writable<MediaRecorder | null>;
+	audioChunks: Writable<Blob[]>;
+	audioBlob: Writable<Blob>;
+}
+
+export const createRecorderContext = () => {
+	const mediaRecorder = writable<MediaRecorder | null>(null);
+	const audioChunks = writable<Blob[]>([]);
+	const audioBlob = writable<Blob>(new Blob([]));
+	const recorderContext: RecorderContext = {
+		mediaRecorder,
+		audioChunks,
+		audioBlob
+	};
+	setContext('recorder', recorderContext);
+	return recorderContext;
+};
+
+export const getRecorderContext = () => {
+	return getContext<RecorderContext>('recorder');
 };

@@ -5,6 +5,7 @@ export const transcribe = async (
 	attemptId: string,
 	recordId: string
 ) => {
+	// TODO: Use a real algorithm
 	await new Promise((resolve) => setTimeout(resolve, 5000));
 	const content = 'Mock transcribe content';
 
